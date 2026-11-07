@@ -5,7 +5,7 @@
 - [x] Create public umbrella repository and public platform forks.
 - [x] Attach upstream remotes and organize existing Edifier research.
 - [x] Record target-device matrix and evidence policy.
-- [ ] Pin upstream revisions and confirm contribution/license requirements for each base.
+- [x] Pin upstream revisions and retain each base's license and history.
 - [ ] Add CI metadata and a versioned device-profile format after the first profile is understood.
 
 ## Phase 1 — Inventory and protocol discovery
@@ -30,6 +30,12 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
+### Current implementation checkpoint (2026-11-07)
+
+- macOS: W820NB Plus BLE discovery, Edifier D8 capability query/raw-payload preservation, battery read, and ANC/transparency controls are merged in [DeviceDeck-macOS #2](https://github.com/Basil-AS/DeviceDeck-macOS/pull/2). DeviceDeck identity/release foundation is merged in [#3](https://github.com/Basil-AS/DeviceDeck-macOS/pull/3). The service UUID comes from the supplied mEDIFIER source archive; no physical headset has verified connection or command behavior. EQ, game mode, prompts, gestures, and device information are still outstanding.
+- Android/Windows: foundation and GitFlow CI are in [DeviceDeck-Android-Windows #1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/1). DeviceDeck identity, original launcher icon, own updater source, removal of upstream telemetry/report endpoints, and Windows/Linux branding are merged in [#2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/2). Full Android and Windows/Linux CI is green. A persistent Android signing key and GitHub Actions secrets are configured locally/remotely. Tagged release publishing and the public-facing fork cleanup are in [PR #3](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/3), awaiting CI; the signer has not yet been exercised by a tag release. Android/desktop realme Air 7/Air 7 Pro profiles are inherited from QuickBuds and need fresh DeviceDeck verification. No new protocol implementation has started there for Edifier or Baseus.
+- Realme and Baseus requested models remain research/catalog-only in DeviceDeck until implementation and hardware evidence are recorded.
+
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
 
 ## Phase 4 — Broader model coverage
@@ -44,7 +50,10 @@ Deliver each model in slices: identification and battery/status; primary modes; 
 - Apply the DeviceDeck visual system consistently across platforms while respecting upstream UI architecture.
 - Create original app icons and device illustrations, or use assets with documented redistribution rights.
 - Add pairing/connect/recovery guidance, device-specific settings, offline operation, and useful error messages.
-- Package public builds only after hardware verification and license review.
+- Android/Windows: finish PR #3 CI, merge to develop, promote via a release PR to main, then exercise alpha tags and validate published assets/checksums/signing.
+- macOS: tag-based packaging is configured, but ad-hoc signatures are not notarized; production Gatekeeper distribution needs Developer ID/notarization credentials.
+- Keep release channels per platform and publish only version-matched assets; mark unverified protocol builds as alpha.
+- Package public builds only after hardware verification and license review; mark unverified builds as alpha.
 
 ## Validation gate for every device feature
 

@@ -1,0 +1,45 @@
+name: Project checks
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate support matrix and research data
+        run: |
+          python3 - <<'PY'
+          import csv
+          import pathlib
+          import subprocess
+          import xml.etree.ElementTree as ET
+
+          root = pathlib.Path('.')
+          required = [
+              'Edifier W820NB Plus', 'realme Buds Air 7', 'realme Buds Air 7 Pro',
+              'Baseus EP10 Pro', 'Baseus Bowie 30', 'Baseus Bowie MF1', 'Baseus Blade 2',
+          ]
+          matrix = (root / 'SUPPORT_MATRIX.md').read_text()
+          missing = [name for name in required if name not in matrix]
+          if missing:
+              raise SystemExit(f'Missing target devices in SUPPORT_MATRIX.md: {missing}')
+          for path in (root / 'research').glob('*.csv'):
+              with path.open(encoding='utf-8-sig', newline='') as stream:
+                  if not list(csv.reader(stream)):
+                      raise SystemExit(f'Empty CSV: {path}')
+          ET.parse(root / 'assets/icons/devicedeck-symbol.svg')
+          tracked = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+          forbidden = [p for p in tracked if p.lower().endswith(('.apk', '.apks', '.aab', '.rar'))]
+          if forbidden:
+              raise SystemExit(f'Vendor packages must not be tracked: {forbidden}')
+          print('Project metadata is consistent.')
+          PY
