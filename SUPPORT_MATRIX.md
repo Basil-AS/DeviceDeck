@@ -5,8 +5,8 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 | Device | Android | Windows | macOS | Planned controls / research status |
 |---|---|---|---|---|
 | Edifier W820NB Plus | Researching | Not started | Implemented, unverified | macOS feature PR adds BLE discovery, raw D8 capability capture, battery, ANC and transparency. BLE UUIDs are from a community source profile; no physical headset verification yet. EQ, game mode, prompts, gestures and device information remain unimplemented. |
-| realme Buds Air 7 | Researching | Researching | Researching | Battery, ANC, EQ, spatial/high-quality/low-latency modes, multipoint, gestures, wear/find where the model exposes them |
-| realme Buds Air 7 Pro | Researching | Researching | Researching | Battery, ANC/wind reduction, EQ, spatial/high-quality/low-latency modes, gestures, wear/find; validate each platform |
+| realme Buds Air 7 | Implemented, unverified | Implemented, unverified | Researching | Android/Windows inherit a model profile with battery, ANC modes, game/high-quality/spatial audio, EQ, multipoint, gestures, wear and find mappings. DeviceDeck hardware round-trip verification is outstanding. |
+| realme Buds Air 7 Pro | Implemented, unverified | Implemented, unverified | Researching | Android/Windows inherit a model profile with battery, ANC/wind, game/high-quality/spatial audio, EQ, gestures, wear and find mappings. Multipoint is not in this profile. Verify each control and platform on named hardware/firmware. |
 | Baseus EP10 Pro | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
 | Baseus Bowie 30 | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
 | Baseus Bowie MF1 | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
@@ -20,7 +20,7 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 - Reconnect and persistence behavior.
 - Whether the official app/system service must release an exclusive control connection.
 
-Feature names above are investigation targets, not claims that every model supports every item.
+For inherited realme profiles, listed controls describe mappings in the existing Android/Windows code, not verified results from a DeviceDeck build. Other feature names are investigation targets, not claims that every model supports every item.
 
 ## Current static evidence
 
