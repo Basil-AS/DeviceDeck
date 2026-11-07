@@ -10,7 +10,7 @@
 
 ## Phase 1 — Inventory and protocol discovery
 
-1. Decompile the supplied realme Link and Baseus Intelligent APK splits locally; identify package/build versions, model databases, BLE services/characteristics, packet framing, capability discovery, and command mappings.
+1. Decompile the supplied realme Link and Baseus Intelligent APK splits locally; identify package/build versions, model databases, BLE services/characteristics, packet framing, capability discovery, and command mappings. Current static Baseus findings are in [`research/baseus-intelligent-findings.md`](../research/baseus-intelligent-findings.md); they are not yet a verified BLE command map.
 2. Extract device catalogs from all reviewed apps and open projects (QuickBuds, HeyBuds, Edifier Connect/ConneX, Baseus Intelligent, mEDIFIER, EncoDeck, and relevant platform clients). Maintain provenance per model and per feature.
 3. Compare catalog/UI evidence with runtime packet evidence. Static strings and model rows are leads, not proof of working hardware support.
 4. For Baseus Blade 2, first establish its BLE profile and whether it has any BLE control channel; power-bank telemetry and charging safety are treated separately.
