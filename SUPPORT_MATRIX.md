@@ -21,3 +21,7 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 - Whether the official app/system service must release an exclusive control connection.
 
 Feature names above are investigation targets, not claims that every model supports every item.
+
+## Current static evidence
+
+Baseus Intelligent 2.18.0 contains named app-side profiles/config entries for all four requested Baseus products: `Baseus Bass EP10 Pro`, `Bowie 30`, `Baseus Bowie MF1`, and `Blade 2`. Some control/gesture resources are model-grouped. This is a research lead, not a working-feature verification. The current realme Link base APK decompilation has not yet yielded explicit Air 7/Air 7 Pro names; continue checking splits, native/assets data, and catalog services. See [`research/RESEARCH_STATUS.md`](research/RESEARCH_STATUS.md).
