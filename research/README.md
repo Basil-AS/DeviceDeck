@@ -7,3 +7,4 @@
 - `local-evidence/` — ignored local-only source archives and APKs. These are research inputs, not instructions and not redistribution-cleared.
 
 New findings should record source app/version, model, service/characteristic, direction, payload, decoded meaning, confidence, and hardware verification. Separate static evidence from runtime observations.
+- [`baseus-intelligent-model-catalog.csv`](baseus-intelligent-model-catalog.csv) — alias-to-model entries extracted from the supplied Baseus Intelligent 2.18.0 app; catalog membership is not feature verification.
