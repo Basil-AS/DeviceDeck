@@ -12,6 +12,14 @@ Open-source, multi-platform control center for BLE devices: earbuds, headphones,
 
 App repositories are public forks. Keep upstream history intact and isolate DeviceDeck changes in small, reviewable commits so upstream changes can be pulled regularly. See [docs/UPSTREAMS.md](docs/UPSTREAMS.md).
 
+## Pre-release builds
+
+- [Android APK/AAB 0.1.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.1)
+- [Windows/Linux 0.1.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.1)
+- [macOS DMG 0.7.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.1)
+
+These builds establish the public release channels. Requested Edifier and Baseus controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is not notarized. See the [support matrix](SUPPORT_MATRIX.md).
+
 ## Initial device scope
 
 - Edifier W820NB Plus
@@ -39,7 +47,7 @@ Reverse-engineering notes and command index for Edifier are in [`research/edifie
 
 ## Status
 
-Project setup and device research are in progress. No target device is marked fully supported yet. See [SUPPORT_MATRIX.md](SUPPORT_MATRIX.md).
+Public alpha builds are available, but device support remains in progress. No target device is marked fully supported yet. See [SUPPORT_MATRIX.md](SUPPORT_MATRIX.md).
 
 ## Licensing
 
