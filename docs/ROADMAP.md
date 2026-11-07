@@ -30,6 +30,12 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
+### Current implementation checkpoint (2026-11-07)
+
+- macOS: initial W820NB Plus BLE discovery, Edifier D8 capability query/raw-payload preservation, battery read, and ANC/transparency controls are in PR [DeviceDeck-macOS #2](https://github.com/Basil-AS/DeviceDeck-macOS/pull/2). The service UUID comes from the supplied mEDIFIER source archive; no physical headset has verified connection or command behavior. EQ, game mode, prompts, gestures, and device information are still outstanding.
+- Android/Windows: foundation PR [DeviceDeck-Android-Windows #1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/1) configures GitFlow CI and artifact naming. DeviceDeck Edifier protocol work has not started there.
+- Realme and Baseus requested models remain research/catalog-only in DeviceDeck until implementation and hardware evidence are recorded.
+
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
 
 ## Phase 4 — Broader model coverage
