@@ -4,7 +4,7 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 
 | Device | Android | Windows | macOS | Planned controls / research status |
 |---|---|---|---|---|
-| Edifier W820NB Plus | Researching | Not started | Implemented, unverified | macOS feature PR adds BLE discovery, raw D8 capability capture, battery, ANC and transparency. BLE UUIDs are from a community source profile; no physical headset verification yet. EQ, game mode, prompts, gestures and device information remain unimplemented. |
+| Edifier W820NB Plus | Researching | Not started | Implemented, unverified | macOS has BLE discovery, raw D8 capture, battery, ANC/transparency, and a decoded D8 capability report on the device-info page. These reported capabilities are informational; EQ, game mode, prompts, gestures and other controls still need command implementation and hardware round-trip validation. BLE UUIDs are from a community source profile; no physical headset verification yet. |
 | realme Buds Air 7 | Researching | Researching | Researching | Battery, ANC, EQ, spatial/high-quality/low-latency modes, multipoint, gestures, wear/find where the model exposes them |
 | realme Buds Air 7 Pro | Researching | Researching | Researching | Battery, ANC/wind reduction, EQ, spatial/high-quality/low-latency modes, gestures, wear/find; validate each platform |
 | Baseus EP10 Pro | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
