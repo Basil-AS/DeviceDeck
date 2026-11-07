@@ -5,7 +5,7 @@
 - [x] Create public umbrella repository and public platform forks.
 - [x] Attach upstream remotes and organize existing Edifier research.
 - [x] Record target-device matrix and evidence policy.
-- [ ] Pin upstream revisions and confirm contribution/license requirements for each base.
+- [x] Pin upstream revisions and retain each base's license and history.
 - [ ] Add CI metadata and a versioned device-profile format after the first profile is understood.
 
 ## Phase 1 — Inventory and protocol discovery
@@ -32,8 +32,8 @@ Suggested order:
 
 ### Current implementation checkpoint (2026-11-07)
 
-- macOS: initial W820NB Plus BLE discovery, Edifier D8 capability query/raw-payload preservation, battery read, and ANC/transparency controls are in PR [DeviceDeck-macOS #2](https://github.com/Basil-AS/DeviceDeck-macOS/pull/2). The service UUID comes from the supplied mEDIFIER source archive; no physical headset has verified connection or command behavior. EQ, game mode, prompts, gestures, and device information are still outstanding.
-- Android/Windows: foundation PR [DeviceDeck-Android-Windows #1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/1) configures GitFlow CI and artifact naming. DeviceDeck Edifier protocol work has not started there.
+- macOS: W820NB Plus BLE discovery, Edifier D8 capability query/raw-payload preservation, battery read, and ANC/transparency controls are merged in [DeviceDeck-macOS #2](https://github.com/Basil-AS/DeviceDeck-macOS/pull/2). DeviceDeck identity/release foundation is merged in [#3](https://github.com/Basil-AS/DeviceDeck-macOS/pull/3). The service UUID comes from the supplied mEDIFIER source archive; no physical headset has verified connection or command behavior. EQ, game mode, prompts, gestures, and device information are still outstanding.
+- Android/Windows: foundation and GitFlow CI are in [DeviceDeck-Android-Windows #1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/1). Fork identity, own update source, removal of upstream telemetry/report endpoints, and Windows/Linux branding are under review in [#2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/2). No new DeviceDeck device protocol code has started there.
 - Realme and Baseus requested models remain research/catalog-only in DeviceDeck until implementation and hardware evidence are recorded.
 
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
@@ -50,7 +50,8 @@ Deliver each model in slices: identification and battery/status; primary modes; 
 - Apply the DeviceDeck visual system consistently across platforms while respecting upstream UI architecture.
 - Create original app icons and device illustrations, or use assets with documented redistribution rights.
 - Add pairing/connect/recovery guidance, device-specific settings, offline operation, and useful error messages.
-- Package public builds only after hardware verification and license review.
+- Establish persistent Android signing, tag-based Android/macOS/Windows releases, checksums, and release notes before calling a build an installable public release.
+- Package public builds only after hardware verification and license review; mark unverified builds as alpha.
 
 ## Validation gate for every device feature
 
