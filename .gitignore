@@ -1,0 +1,26 @@
+# User-supplied vendor packages, source dumps and raw forum exports
+research/local-evidence/**
+!research/local-evidence/README.md
+
+# Local reverse-engineering scratch work
+*.apk
+*.apks
+*.aab
+*.rar
+*.zip
+*.dex
+*.odex
+*.vdex
+*.class
+*.jar
+*.so
+*.bin
+*.pcap
+*.pcapng
+*.log
+
+.DS_Store
+.idea/
+.vscode/
+build/
+.gradle/

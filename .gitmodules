@@ -1,0 +1,6 @@
+[submodule "apps/android-windows"]
+	path = apps/android-windows
+	url = https://github.com/Basil-AS/DeviceDeck-Android-Windows.git
+[submodule "apps/macos"]
+	path = apps/macos
+	url = https://github.com/Basil-AS/DeviceDeck-macOS.git
