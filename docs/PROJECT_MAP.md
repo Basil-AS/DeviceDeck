@@ -1,5 +1,7 @@
 # Project map
 
+`research/baseus-reference/` is an upstream source/protocol reference checkout only. It is not a DeviceDeck app or release target; implement Baseus user-facing features in `apps/android-windows` and `apps/macos`.
+
 DeviceDeck is an umbrella repository for platform apps, vendor protocol research, and shared project planning. App implementations remain in their own public GitHub repositories and are pinned here as Git submodules. The umbrella repo is the place to compare platform coverage and coordinate model-level evidence; it is not a shared cross-platform runtime.
 
 ## Top-level files and directories
