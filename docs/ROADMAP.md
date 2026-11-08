@@ -20,6 +20,7 @@
 - Define capability, state, command, response, and error models.
 - Add protocol codecs as vendor/model modules, with golden packet fixtures and provenance notes.
 - Add read-before/write/read-after behavior, timeouts, reconnect handling, and capability-gated UI.
+- Add a native BLE/GATT transport to Android and Windows/Linux before exposing Edifier or Baseus controls there. The inherited Android and desktop apps currently speak RFCOMM for their realme/OPPO link; the Android Edifier codec alone does not connect to BLE devices. Keep platform transport code separate from the vendor codec/profile.
 - Keep destructive operations (reset, firmware update, arbitrary raw writes) out of ordinary controls until independently verified and guarded.
 
 ## Phase 3 — Initial device support
@@ -30,10 +31,12 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
-### Current implementation checkpoint (2026-11-07)
+### Current implementation checkpoint (2026-11-08)
 
-- macOS: W820NB Plus BLE discovery, raw D8 capability query, battery read, ANC/transparency, and a decoded D8 capability report on the device-info page are merged in [DeviceDeck-macOS #7](https://github.com/Basil-AS/DeviceDeck-macOS/pull/7). [DeviceDeck-macOS 0.7.0-alpha.3](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.3) includes a DMG and source archive; it corrects D8 scalar capability interpretation to match Edifier Connect and adds regression coverage. The capability report is informational, not a claim that each displayed feature has a DeviceDeck command. The service UUID comes from the supplied mEDIFIER source archive; no physical headset has verified connection or command behavior. EQ, game mode, prompts and gestures remain outstanding. The DMG is ad-hoc signed and not notarized.
+- macOS: W820NB Plus BLE discovery, raw D8 capability query, battery read, ANC/transparency, and a decoded D8 capability report are in [DeviceDeck-macOS #7](https://github.com/Basil-AS/DeviceDeck-macOS/pull/7). [DeviceDeck-macOS 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4) adds capability-gated game mode (0x08 query, 0x09 write followed by readback), tests, a DMG, and source archive. No physical headset has verified connection or command behavior. EQ, prompts and gestures remain outstanding. The DMG is ad-hoc signed and not notarized.
 - Android/Windows/Linux: DeviceDeck branding and protocol foundation are in [DeviceDeck-Android-Windows #2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/2); versioned signing/release pipeline is in [#3](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/3). Alpha.2 artifacts are published: [Android APK/AAB](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.2) and [Windows ZIP/Linux AppImage](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2), each with SHA256SUMS; the Android APK signature and package were verified by tag CI. This release adds the Air 7 Pro spatial-silent warning to the desktop known-issues screen and regression coverage. Android/desktop realme Air 7/Air 7 Pro protocol profiles remain inherited from QuickBuds and need fresh DeviceDeck hardware verification. Edifier and Baseus protocol implementations have not started on these platforms.
+- Android: an isolated Edifier frame codec and tests are proposed in [DeviceDeck-Android-Windows #9](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/9); this is framing infrastructure, not BLE transport or W820NB Plus control support. The Android BLE implementation still needs a GATT connection, notifications, serialized writes, lifecycle/reconnect handling, then model-profile UI and command readback.
+- Windows/Linux: the inherited app's device link is RFCOMM. Edifier/Baseus GATT transport and model support have not started.
 - Realme and Baseus requested models remain research/catalog-only in DeviceDeck until implementation and hardware evidence are recorded.
 
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
