@@ -16,7 +16,7 @@
 
 ## Next investigations
 
-1. Trace the Baseus BLE SDK's transport behavior and use the newly identified group-4 UUID profile to integrate Blade 2 discovery/session handling. Verify commands, scales and readback on hardware.
+1. Trace the Baseus BLE SDK's transport behavior and use the cataloged group-4 profile to integrate Blade 2 discovery/session handling. Build the power-device UI, then verify commands, scales and readback on hardware.
 2. Continue catalog analysis for Baseus non-BLE and cloud-controlled product families; this BLE dictionary is not the full Baseus app catalog. Keep dated regional snapshots and do not publish credentials, tokens, or user identifiers.
 3. Trace target model profiles and feature actions individually, then compare with QuickBuds/HeyBuds and the existing Edifier report.
 4. Continue targeted audits of non-earbud families (especially smart plugs, charging devices and portable power stations); obtain hardware/firmware observations before marking any device feature verified.

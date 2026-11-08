@@ -20,7 +20,7 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 These are alpha builds. Baseus EP10 Pro now has an initial macOS SPP battery/noise control path, not yet hardware-verified; other requested Baseus controls and platform paths remain incomplete. Requested Edifier controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
 
-The separate [Baseus desktop fork](apps/baseus) contains an initial Blade 2-140 protocol codec extracted from Baseus Intelligent. It is not device support yet: the model's BLE profile, live telemetry UI and hardware behavior still need validation.
+The separate [Baseus desktop fork](apps/baseus) contains a catalog of 149 BLE model profiles from Baseus Intelligent EU configuration and an initial Blade 2-140 app-layer protocol codec. This is not live device support yet: connection/session handling, telemetry UI and hardware behavior still need validation.
 
 ## Initial device scope
 
