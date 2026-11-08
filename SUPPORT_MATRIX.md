@@ -4,9 +4,9 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 
 | Device | Android | Windows | macOS | Planned controls / research status |
 |---|---|---|---|---|
-| Edifier W820NB Plus | Researching | Not started | Implemented, unverified | macOS has BLE discovery, raw D8 capture, battery, ANC/transparency, and a decoded D8 capability report on the device-info page. These reported capabilities are informational; EQ, game mode, prompts, gestures and other controls still need command implementation and hardware round-trip validation. BLE UUIDs are from a community source profile; no physical headset verification yet. |
-| realme Buds Air 7 | Researching | Researching | Researching | Battery, ANC, EQ, spatial/high-quality/low-latency modes, multipoint, gestures, wear/find where the model exposes them |
-| realme Buds Air 7 Pro | Researching | Researching | Researching | Battery, ANC/wind reduction, EQ, spatial/high-quality/low-latency modes, gestures, wear/find; validate each platform |
+| Edifier W820NB Plus | Researching | Not started | Implemented, unverified | macOS alpha.3 adds D8 scalar capability decoding matched to Edifier Connect semantics; BLE discovery, raw D8 capture, battery, ANC/transparency and an informational capability report are present. EQ, game mode, prompts, gestures and other controls still need command implementation and hardware round-trip validation. BLE UUIDs are from a community source profile; no physical headset verification yet. |
+| realme Buds Air 7 | Implemented, unverified | Implemented, unverified | Researching | Android/Windows inherit a model profile with battery, ANC modes, game/high-quality/spatial audio, EQ, multipoint, gestures, wear and find mappings. DeviceDeck hardware round-trip verification is outstanding. |
+| realme Buds Air 7 Pro | Implemented, unverified | Implemented, unverified | Researching | Android/Windows inherit a model profile with battery, ANC/wind, game/high-quality/spatial audio, EQ, gestures, wear and find mappings. The Windows/Linux known-issues page now warns that spatial audio may be silent (DeviceDeck-Android-Windows alpha.2). Multipoint is not in this profile. Verify controls on named hardware/firmware. |
 | Baseus EP10 Pro | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
 | Baseus Bowie 30 | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
 | Baseus Bowie MF1 | Researching | Not started | Not started | Extract model/profile and command capabilities from Baseus Intelligent; hardware validation required |
@@ -20,7 +20,7 @@ Status meanings: **Not started** = no DeviceDeck implementation; **Researching**
 - Reconnect and persistence behavior.
 - Whether the official app/system service must release an exclusive control connection.
 
-Feature names above are investigation targets, not claims that every model supports every item.
+For inherited realme profiles, listed controls describe mappings in the existing Android/Windows code, not verified results from a DeviceDeck build. Other feature names are investigation targets, not claims that every model supports every item.
 
 ## Current static evidence
 
