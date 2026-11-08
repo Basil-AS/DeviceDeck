@@ -14,11 +14,11 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.5](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.5)
-- [Windows ZIP/Linux AppImage 0.1.0-alpha.5](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.5)
-- [macOS DMG 0.7.0-alpha.6](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.6)
+- [Android APK/AAB 0.1.0-alpha.6](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.6)
+- [Windows ZIP/Linux AppImage 0.1.0-alpha.6](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.6)
+- [macOS DMG 0.7.0-alpha.7](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.7)
 
-These are alpha builds of one DeviceDeck app per platform; vendor families are device profiles inside each app. Android alpha.5 includes Baseus EP10 Pro and Bowie MF1 SPP controls, Blade 2 telemetry/display controls, Bowie 30 BLE controls, and W820NB Plus battery/noise controls. Windows/Linux alpha.5 adds Blade 2 telemetry/display/timer controls to its existing Edifier and Bowie 30 hub. macOS alpha.6 adds Blade 2 telemetry/display/timer controls alongside its Edifier, EP10 Pro, Bowie 30, and Bowie MF1 support. Device paths still need physical-device verification, and further controls remain to be implemented. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
+These are alpha builds of one DeviceDeck app per platform; vendor families are device profiles inside each app. Android alpha.6 includes Baseus EP10 Pro and Bowie MF1 SPP controls, Blade 2 telemetry/display controls, Bowie 30 BLE controls, and W820NB Plus battery/noise controls. Windows/Linux alpha.6 adds EP10 Pro SPP mode controls and MF1 battery reading to the same accessory hub, alongside Blade 2 telemetry/display/timer controls. macOS alpha.7 includes realme Air 7/Air 7 Pro profiles plus Blade 2 controls alongside Edifier and Baseus. Device paths still need physical-device verification, and further controls remain to be implemented. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
 
 DeviceDeck is one cross-platform product with per-platform builds. Baseus support lives inside the same DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout retained as protocol/source reference; it is not a separate product or release target. Its catalog of 149 BLE model profiles informs the shared device catalog. Blade 2 power telemetry and display/timer settings are implemented in the Android, Windows/Linux, and macOS hubs; Blade 2-140 cell metrics are implemented on Android. Port controls, some settings without protocol readback, broader model coverage, and physical-device verification remain open.
 
