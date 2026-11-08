@@ -14,11 +14,11 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.1)
-- [Windows/Linux 0.1.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.1)
-- [macOS DMG 0.7.0-alpha.1](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.1)
+- [Android APK/AAB 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.2)
+- [Windows/Linux 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2)
+- [macOS DMG 0.7.0-alpha.3](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.3)
 
-These builds establish the public release channels. Requested Edifier and Baseus controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is not notarized. See the [support matrix](SUPPORT_MATRIX.md).
+These are alpha builds. Requested Edifier and Baseus controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
 
 ## Initial device scope
 
@@ -30,6 +30,10 @@ These builds establish the public release channels. Requested Edifier and Baseus
 - Baseus Blade 2
 
 See [device support matrix](SUPPORT_MATRIX.md) and [roadmap](docs/ROADMAP.md).
+
+## Repository map
+
+See [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md) for where app code, protocol research, local-only inputs, assets, planning, and release workflow live.
 
 “Support” is tracked per feature and per platform. A model catalog entry is not proof that its commands work. Features are marked verified only after read/write round-trip checks on hardware and firmware are recorded.
 
