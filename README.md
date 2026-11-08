@@ -18,7 +18,7 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 - [Windows/Linux 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2)
 - [macOS DMG 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4)
 
-These are alpha builds. Requested Edifier and Baseus controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
+These are alpha builds. Baseus EP10 Pro now has an initial macOS SPP battery/noise control path, not yet hardware-verified; other requested Baseus controls and platform paths remain incomplete. Requested Edifier controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
 
 ## Initial device scope
 
