@@ -14,13 +14,13 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.2)
-- [Windows/Linux 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2)
-- [macOS DMG 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4)
+- [Android APK/AAB 0.1.0-alpha.3](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.3)
+- [Windows/Linux 0.1.0-alpha.3](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.3)
+- [macOS DMG 0.7.0-alpha.5](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.5)
 
-These are alpha builds. Android and macOS include initial Baseus Bowie 30 battery/noise control paths, macOS includes an EP10 Pro SPP path, and Android/macOS include initial Edifier W820NB Plus battery/noise controls; these new device paths are not hardware-verified yet. Remaining Baseus controls and platform paths are incomplete, as are several Edifier features. realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
+These are alpha builds. Android alpha.3 includes Blade 2 telemetry/display controls, and macOS alpha.5 adds Bowie MF1 battery readings alongside EP10 Pro SPP and Bowie 30 BLE controls. Android/Windows/Linux EP10 Pro and MF1 additions are in the upcoming alpha.4 release branch. Device paths remain unverified on physical hardware, and several Edifier/realme/Baseus functions are still missing. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for platform and device status.
 
-DeviceDeck is one cross-platform product with per-platform builds. Baseus support belongs in the existing DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout of an upstream Baseus desktop project, retained only as protocol/source reference; it is not a DeviceDeck product or release target. Its catalog of 149 BLE model profiles and initial Blade 2-140 app-layer codec are research inputs, not live device support. Connection/session handling, the unified DeviceDeck telemetry UI and hardware behavior still need implementation and validation.
+DeviceDeck is one cross-platform product with per-platform builds. Baseus support lives inside the same DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout retained as protocol/source reference; it is not a separate product or release target. Its catalog of 149 BLE model profiles informs the shared device catalog, and its Blade 2-140 codec has an initial Android telemetry/display implementation. Broader port controls, Windows/macOS powerbank sessions, and physical-device verification remain open.
 
 ## Initial device scope
 
