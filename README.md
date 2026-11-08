@@ -18,7 +18,7 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 - [Windows/Linux 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2)
 - [macOS DMG 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4)
 
-These are alpha builds. Baseus EP10 Pro now has an initial macOS SPP battery/noise control path, not yet hardware-verified; other requested Baseus controls and platform paths remain incomplete. Requested Edifier controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
+These are alpha builds. Android and macOS now include initial Baseus Bowie 30 battery/noise control paths, and macOS includes an EP10 Pro SPP path; none are hardware-verified yet. Other requested Baseus controls and platform paths remain incomplete. Requested Edifier controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
 
 DeviceDeck is one cross-platform product with per-platform builds. Baseus support belongs in the existing DeviceDeck apps and release channels; `apps/baseus` is retained only as a protocol research/reference checkout and is not a separate product or release target. Its catalog of 149 BLE model profiles and initial Blade 2-140 app-layer codec are research inputs, not live device support. Connection/session handling, the unified DeviceDeck telemetry UI and hardware behavior still need implementation and validation.
 
