@@ -17,6 +17,67 @@ The app recognizes these exact internal model names and has app-side product/res
 
 `DeviceResVersion1` returns resource categories, not protocol command IDs. Its category-0 fallback also recognizes entries from the app's energy-storage enum. The product resource mapping alone must not be treated as proof that controls are bundled or work offline.
 
+## Blade 2-140: extracted mobile-power functionality
+
+The decompiled app contains substantially more than a battery percentage screen for this model. `MainFragmentViewModel` and `StatisticsFragmentViewModel` build the requests and parse the responses. The following is **static app evidence** from Baseus Intelligent 2.18.0 (185); a live capture against the user's Blade 2 is still needed to prove firmware acceptance, scale factors and exact meaning of each port-status bit.
+
+### UI features found
+
+- Main page: temperature, electricity/energy value, remaining time, charge time, port status/error, reminder and auto-off countdowns, screen theme, screen-saver state and user text; Bluetooth/BMS/DC module versions are also queried/displayed.
+- Screen personalization: three theme presets (the UI calls them themes; do not label them as an arbitrary RGB color picker), screen-saver toggle and custom UTF-8 text. Text input is filtered by the app and sent as UTF-8 hex. The code trims whitespace and ignores empty strings. The exact device-side character/byte limit is not safely inferable from the UI code alone.
+- Statistics page: Type-C 1 and Type-C 2 each display voltage, current, power and negotiated charging protocol; the app maintains separate input/charge and output/discharge readings. It also renders six battery-cell voltage/current/status entries, cell temperature and cycle count, plus a repair indicator. This is the source for the requested per-port voltage readings.
+- Controls: per-port enable/disable actions are built for two Type-C ports. The UI also supports reminder and shutdown countdowns. Reset-to-default exists in the main view-model; do not expose it without a deliberate confirmation.
+- Polling: statistics activates two periodic control writes/requests while the statistics view is open and disables them on exit. The app polls the port state during an active session. Treat codes 0037/0038 as opaque polling/enable controls until captured; their semantic names are not established here.
+
+### App-layer request format and code table
+
+The BLE view-model constructs reads as `9AAA03 + code + 0001` and writes as `9AAA10 + code + 0001 + 0201 + value`, then passes the full string through `EnergyStorageUtil`'s CRC16 routine. These are application payloads; the BLE library still owns characteristic transport/framing.
+
+| Code | App-side interpretation/action | Evidence level |
+|---|---|---|
+| `0001`–`000C` | Type-C1 output V/A/W (`0001`/`0002`/`0003`); Type-C2 output V/A/W (`0004`/`0005`/`0006`); Type-C1 input V/A/W (`0007`/`0008`/`0009`); Type-C2 input V/A/W (`000A`/`000B`/`000C`). Parser computes raw value divided by the response multiplier byte. | Exact app parser mapping; scale/range needs device capture |
+| `000D` | Main-page temperature, raw minus 100 | Exact parser mapping |
+| `0010` | Port/status bitfield; used to update status and drive on/off control state | Exact parser/use, bit semantics partly unresolved |
+| `0011` | Device error value | Exact parser mapping; error enum not yet decoded |
+| `0012` | Type-C charging protocol code | Exact parser mapping; label table in `MobilePowerUtil` |
+| `0013`, `0023`, `0024` | Bluetooth module, BMS and DC module versions | Exact app read/display behavior |
+| `0014` | Main-page electricity/energy value | Exact parser mapping; physical unit/scaling needs capture/UI string cross-check |
+| `0015`, `0016` | Remaining time and charge time; app caps values at 1440 | Exact parser mapping |
+| `0018`, `0019`, `001A`, `001B` | Port control writes. Values `0000` and `0001` are used by the UI to switch port states. State bit pairs are extracted from low two bits and bits 2–3 of `0010`. | Exact command builders/UI call; port-to-code mapping requires live confirmation |
+| `001E`, `001F` | Reminder countdown and automatic shutdown countdown | Exact read/write path |
+| `0020` | Screen theme; UI selects one of three indices (0, 1, 2) and writes a four-hex-digit value | Exact UI choices/write path |
+| `0021` | A write path exists in the main view-model, but its UI meaning was not established in this pass | Known write builder, semantic unresolved |
+| `0022` | Screen-saver state | Exact parser/write path |
+| `0025`, `0026` | Blade 2-140 cell temperature (raw minus 100) and cycle count | Exact app parser/read list |
+| `0028`–`002D` | Battery-cell voltage values 1–6 | Exact statistics parser mapping |
+| `0030` | Custom screen text, decoded/encoded as UTF-8 | Exact parser and write path |
+| `0031`–`0036` | Battery-cell current values 1–6 | Exact statistics parser mapping |
+| `0037`, `0038` | Enabled while statistics screen is active; turned off when leaving | Exact lifecycle call; command semantics unresolved |
+| `000E` | Restore defaults write with value `0000` | Exact reset path; potentially disruptive, keep gated |
+
+`MobilePowerUtil` maps protocol integers to labels including PPS, PD 3.0, QC 2.0/3.0, AFC, FCP and SCP; Blade2-140 uses a model-specific index table. The table indicates what the app can display and does not guarantee every protocol is supported by every port/accessory.
+
+### Important correction to earlier project notes
+
+The previous sentence that Blade telemetry requests and safe writes were “not yet resolved” is now superseded for *static app logic*: the view-model constructs and parses the controls above. Hardware-level confirmation remains outstanding. The exact BLE UUID/config is not bundled in the product-resource ZIP; it is delivered by the app's separate BLE configuration path. Consequently, a standalone implementation still needs a captured device configuration (or safe discovery procedure), notification/readback trace and firmware/model identifier.
+
+## Baseus app device families beyond headphones
+
+The APK contains dedicated app modules for these families (folder/module presence is not proof every model is currently sold, supported in every region or controllable offline):
+
+| Family/module | What is visible from app structure | Confidence/next evidence |
+|---|---|---|
+| Earphones/headphones | TWS and over-ear controls: battery, ANC/transparency, EQ/sound effects, touch gestures, find-device, firmware/account/content adjuncts; model feature availability differs | Many static model mappings; individual protocol profiles need work |
+| Mobile power / power banks | Blade 2-140 dashboard, screen themes/text, timeouts, status and detailed port/cell telemetry described above | Strong UI/protocol-builder evidence; live BLE trace required |
+| Portable power stations | Separate NRG and PES600W controllers, home/output/wave/settings/parallel-operation screens, BLE broadcast receiver and update manager | Explicit controllers for PES600W, BPM600W, PPS140W, PPS140, PPS450W, PPS420W; per-model command audit remains |
+| Smart sockets/receptacles | Dedicated Wi-Fi device flow | Cloud/account and exact model capabilities need inspection |
+| Charging products | Charging station, charging gun, “charging nebula” modules | App modules exist; do not equate this to BLE support without model registry/protocol trace |
+| Home and pet appliances | Purifier, pet purifier/water, fridge and washing-machine modules | Presence in app; likely mixed cloud/local protocols, model list not fully resolved |
+| Scent and environment products | Scent machine, double scent, cup scent; sleep-alarm modules | Presence in app; device/function mapping still needed |
+| Other accessories/services | Smart mouse, stylus, gesture devices, Wi-Fi provisioning, “third serve”, XMly integration | App modules/services; not all are standalone BLE accessories |
+
+The complete module directory inventory and confidence per family are recorded in [`baseus-device-families.csv`](baseus-device-families.csv). The existing [`baseus-intelligent-model-catalog.csv`](baseus-intelligent-model-catalog.csv) is specifically a partial static *earbud name registry* plus the four requested product-resource mappings, not a complete all-Baseus product catalog. Server-driven add-device catalogs are region/account/runtime dependent, so the app package alone cannot provide a defensible complete supported-model list.
+
 ## Gesture function IDs
 
 The bundled `gesture_config_function_list.json` maps these numeric function IDs to eligible actions. The IDs below are copied as IDs; semantic labels and wire encodings still need a verified resource-to-command trace.
@@ -64,7 +125,7 @@ The four API entries had `gestureUrl: null` and no per-model command/feature pay
 |---|---|---|
 | Transport | EP10 Pro/MF1: Android SPP RFCOMM using the standard SPP UUID. Bowie 30/Blade 2: Baseus BLE SDK. `789C` selector is false for all four. | Windows/macOS RFCOMM interoperability and Bowie 30/Blade 2 GATT UUID/config behavior need platform-specific verification. |
 | Framing | Earbud noise commands use `BAxx` app-layer bytes; `BA34 <mode> <level>` is generated by the UI helper and written unchanged for these target names. | Hardware confirmation, notification/state parser mapping, and write completion/readback per model/firmware. |
-| Model controls | EP10 Pro and Bowie 30 have specific noise-mode UI/query/write paths; requested gesture and Blade UI paths are also present. | Gesture function IDs to wire bytes; MF1 mode support; Blade telemetry request/response and any safe controls. |
+| Model controls | EP10 Pro and Bowie 30 have specific noise-mode UI/query/write paths; requested gesture and Blade UI paths are also present. Blade app-layer read/write map is now listed above. | Gesture function IDs to wire bytes; MF1 mode support; Blade BLE UUIDs, response/readback and firmware validation. |
 | UI choices | EP10 Pro has a special noise-resource type selector; Bowie 30 UI lists Off, Transparency, and Noise Reduction. | Whether every choice maps to an implemented write and is accepted by the matching model/firmware. |
 
 Do not implement a generic `BAxx` value as a model feature until evidence links the UI action, exact model and resource version, encoded write, response/read-back, and hardware/firmware. The dynamic resource dependency must be included in repeatable analysis; do not treat an inferred URL or payload as a stable public protocol.
@@ -78,7 +139,8 @@ Before claiming working support, capture Baseus Intelligent while it reads state
 - `NoiseReduceViewModel.java`: mode choices; `m49081z` includes `Bowie 30` in the transparency-capable group.
 - `NoiseReduceManger.java`, `NoiseReduceManger2.java`: model-specific noise resource type selection, including EP10 Pro type 101.
 - `gesture/gesture_config_function_list.json` and `_v2.json`: gesture/action function IDs and model eligibility.
-- `MobilePowerUtil.java` and `view/activity/mobilepower/`: app-side Blade 2-140 monitoring screens.
+- `MobilePowerUtil.java`, `view/activity/mobilepower/viewmodel/MainFragmentViewModel.java`, `StatisticsFragmentViewModel.java`, and `MobilePowerThemeChooseActivity.java`: Blade 2-140 screens, app-layer command builders/parser, telemetry and screen customization.
+- `view/activity/energystorage/strategy/` and `utils/util_ble/BleCommandConst.java`: power-station controller registry and family-specific command handlers.
 - `BluetoothDataWriteManager.java`, `HeadPhoneDataResolveManager.java`, `HeadPhoneCrcUtil.java`: shared command conversion, framing, parsing, and CRC paths.
 - `ResourceManager.java`, `DownloadManager.java`, `DownloadInterface.java`: per-model resource download/cache path.
 
