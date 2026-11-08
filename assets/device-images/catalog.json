@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "artwork": "Original DeviceDeck schematics, not literal product renders",
+  "models": [
+    { "id": "edifier:w820nb-plus", "name": "Edifier W820NB Plus", "image": "over-ear-headphones.svg", "shape": "over-ear" },
+    { "id": "realme:buds-air-7", "name": "realme Buds Air 7", "image": "in-ear-tws.svg", "shape": "in-ear-tws" },
+    { "id": "realme:buds-air-7-pro", "name": "realme Buds Air 7 Pro", "image": "in-ear-tws.svg", "shape": "in-ear-tws" },
+    { "id": "baseus:ep10-pro", "name": "Baseus EP10 Pro", "image": "in-ear-tws.svg", "shape": "in-ear-tws" },
+    { "id": "baseus:bowie-30", "name": "Baseus Bowie 30", "image": "in-ear-tws.svg", "shape": "in-ear-tws" },
+    { "id": "baseus:bowie-mf1", "name": "Baseus Bowie MF1", "image": "open-ear-buds.svg", "shape": "open-ear-tws" },
+    { "id": "baseus:blade-2", "name": "Baseus Blade 2", "image": "slim-power-bank.svg", "shape": "power-bank" }
+  ]
+}

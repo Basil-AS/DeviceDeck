@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Over-ear headphones</title>
+  <desc id="desc">Original DeviceDeck schematic of wireless over-ear headphones.</desc>
+  <defs>
+    <linearGradient id="shell" x1="85" y1="40" x2="237" y2="184" gradientUnits="userSpaceOnUse"><stop stop-color="#F0F4FF"/><stop offset="1" stop-color="#9CA9C4"/></linearGradient>
+    <linearGradient id="accent" x1="78" y1="29" x2="248" y2="189" gradientUnits="userSpaceOnUse"><stop stop-color="#72E6D1"/><stop offset="1" stop-color="#6887FF"/></linearGradient>
+    <filter id="shadow" x="42" y="16" width="236" height="202" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <ellipse cx="160" cy="192" rx="81" ry="10" fill="#172033" opacity=".18" filter="url(#shadow)"/>
+  <path d="M77 132V99a83 83 0 0 1 166 0v33" fill="none" stroke="#27334A" stroke-width="20" stroke-linecap="round"/>
+  <path d="M79 129V99a81 81 0 0 1 162 0v30" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M78 117c-13 0-23 10-23 23v31c0 13 10 23 23 23h18v-77H78Z" fill="#263248"/>
+  <path d="M242 117c13 0 23 10 23 23v31c0 13-10 23-23 23h-18v-77h18Z" fill="#263248"/>
+  <rect x="70" y="124" width="35" height="62" rx="16" fill="url(#shell)"/>
+  <rect x="215" y="124" width="35" height="62" rx="16" fill="url(#shell)"/>
+  <rect x="80" y="137" width="14" height="36" rx="7" fill="#64718B" opacity=".66"/>
+  <rect x="226" y="137" width="14" height="36" rx="7" fill="#64718B" opacity=".66"/>
+  <path d="M123 45c11-8 24-12 37-12s26 4 37 12" fill="none" stroke="#E9EEFA" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+</svg>

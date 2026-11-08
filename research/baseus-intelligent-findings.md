@@ -38,8 +38,22 @@ These findings describe shared app code, not commands confirmed on any specific 
 
 - `BluetoothDataWriteManager` has a connection helper and three write paths. It selects classic Bluetooth for models matching `DeviceManager.m18316H0`; otherwise it uses the vendor `BleApi`. Inputs are model name, hex command text, and Bluetooth address. One overload adds a priority; another calls a distinct BLE SDK method. Whether those SDK methods map to GATT write, write-with-response, or different characteristics still requires SDK tracing and a capture.
 - Before sending, `m18287b` checks a model predicate (`m18334Q0`). For selected models, commands not already prefixed `789C` are converted by `HeadPhoneDataResolveManager.m18972f`; other models pass the string through unchanged. The converter expects `BA` plus at least one command byte, builds a `789C`-prefixed envelope with lengths/selector bytes, and appends a CRC. Its selector table returns marker values such as `00`, `01`, or `03`; their complete semantics are not established. The response parser validates frame length and CRC and splits responses. It special-cases response codes `1B` and `4D`. Thus `BAxx` values seen at the app layer are not necessarily raw GATT payloads.
-- `ResourceManager` fetches per-model resources via HTTPS from `base-sz.oss-accelerate.aliyuncs.com`. `HomeFragmentPresenter` supplies a model name, `DeviceResVersion1` category/version, MD5, and resource URL. The app stores the downloaded data plus version and MD5 metadata. Some control/configuration material is therefore server-delivered and versioned; it is not all recoverable from the APK's readable static tables. Exact downloaded resources and their schemas for the four targets have not been recovered.
+- The requested internal names (`Baseus Bass EP10 Pro`, `Bowie 30`, `Baseus Bowie MF1`, `Blade 2-140`) do not appear in either the decompiled classic-transport predicate (`m18316H0`) or the `789C` conversion predicate (`m18334Q0`). This means the shared methods above do not establish which path or framing any of these four targets use. In particular, do not apply the `789C` wrapper to them based only on another Baseus model.
+- `ResourceManager` fetches per-model resources via HTTPS from `base-sz.oss-accelerate.aliyuncs.com`. `HomeFragmentPresenter` supplies a model name, `DeviceResVersion1` category/version, MD5, and resource URL. The app stores the downloaded data plus version and MD5 metadata. The product-resource package contents were checked live below; this endpoint currently serves presentation media and does not expose a command schema.
 - `DeviceResVersion1`'s model-to-category mapping selects a resource family/version; it is not an opcode and does not prove that an operation is available or accepted by hardware.
+
+### Dynamic product-resource API check (2026-11-08)
+
+The app's `ControlApi.m15009S` calls `POST /app/devicebind/getProductResource` with `{"list":[{"model":...,"version":...}]}` against the configured regional Baseus API. A read-only request to the EU host returned entries for all four target models without a user account. The response and downloaded ZIPs are preserved locally (ignored by Git) in `research/local-evidence/baseus-resources/`; the API `md5` values matched the downloaded files.
+
+| Model sent to API | Resource version | Returned name / category | Download ZIP contents | Meaning |
+|---|---:|---|---|---|
+| `Baseus Bass EP10 Pro` | 3 | `Bass EP10 Pro` / 15 | binding video, product PNG, find-lost GIF, map icon | Product presentation assets; no command table or control JSON in this package |
+| `Bowie 30` | 2 | `Bowie 30` / 15 | binding video, product PNG, find-lost GIF, map icon | Same |
+| `Baseus Bowie MF1` | 3 | `Baseus Bowie MF1` / 21 | binding video, product PNG, find-lost GIF, map icon | Same |
+| `Blade 2-140` | 0 | `Blade 2-140` / 34 | add-device video and product PNG | Mobile-power presentation assets; no BLE control profile in this package |
+
+The four API entries had `gestureUrl: null` and no per-model command/feature payload field. This endpoint therefore does **not** fill the missing protocol map; it serves product metadata and artwork/tutorial assets. Do not redistribute the downloaded vendor images/videos/GIFs. Keep Baseus support at research-only until command/state captures or another first-party protocol source identifies exact writes, notifications, and read-back for each model.
 
 | Area | Static evidence | Still unknown |
 |---|---|---|
