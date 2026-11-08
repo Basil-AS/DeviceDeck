@@ -4,3 +4,7 @@
 [submodule "apps/macos"]
 	path = apps/macos
 	url = https://github.com/Basil-AS/DeviceDeck-macOS.git
+[submodule "apps/baseus"]
+	path = apps/baseus
+	url = https://github.com/Basil-AS/DeviceDeck-Baseus.git
+	branch = develop
