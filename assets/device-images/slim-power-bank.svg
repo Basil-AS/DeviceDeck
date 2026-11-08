@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Slim smart power bank</title>
+  <desc id="desc">Original DeviceDeck schematic of a thin power bank with a display and two USB-C ports.</desc>
+  <defs>
+    <linearGradient id="body" x1="66" y1="63" x2="253" y2="170" gradientUnits="userSpaceOnUse"><stop stop-color="#3A4966"/><stop offset="1" stop-color="#171F30"/></linearGradient>
+    <linearGradient id="accent" x1="99" y1="90" x2="217" y2="142" gradientUnits="userSpaceOnUse"><stop stop-color="#72E6D1"/><stop offset="1" stop-color="#6887FF"/></linearGradient>
+  </defs>
+  <ellipse cx="160" cy="181" rx="107" ry="15" fill="#172033" opacity=".13"/>
+  <path d="m61 75 179-25c8-1 15 4 16 12l13 80c1 8-4 15-12 16L78 183c-8 1-15-4-16-12L49 91c-1-8 4-15 12-16Z" fill="url(#body)" stroke="#66738D" stroke-width="3"/>
+  <path d="m70 86 170-24" stroke="#8190AD" stroke-width="3" opacity=".55"/>
+  <rect x="93" y="101" width="80" height="45" rx="9" fill="#0D1422" stroke="#62718D" stroke-width="3" transform="rotate(-8 93 101)"/>
+  <path d="m114 130 12-17 11 12 10-14" fill="none" stroke="url(#accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="204" cy="103" r="4" fill="#72E6D1"/>
+  <circle cx="217" cy="101" r="4" fill="#72E6D1" opacity=".65"/>
+  <rect x="227" y="139" width="21" height="8" rx="4" fill="#A9B5CC" transform="rotate(-8 227 139)"/>
+  <rect x="251" y="136" width="21" height="8" rx="4" fill="#A9B5CC" transform="rotate(-8 251 136)"/>
+</svg>
