@@ -16,7 +16,7 @@ DeviceDeck is an umbrella repository for platform apps, vendor protocol research
 | `apps/android-windows/` | Android, Windows, and Linux app submodule (`Basil-AS/DeviceDeck-Android-Windows`). |
 | `apps/macos/` | macOS app submodule (`Basil-AS/DeviceDeck-macOS`). |
 | `assets/icons/` | Original DeviceDeck app mark and icon notes. |
-| `assets/device-images/` | Original/redistributable device illustrations; currently no target-device images are checked in. |
+| `assets/device-images/` | Original vector form-factor illustrations and a catalog mapping all seven target models to a silhouette. These are generic interface illustrations, not product renders or protocol-support claims. |
 | `research/` | Evidence index, app/version hashes, model catalogs, reverse-engineering reports, and command indexes. |
 | `research/local-evidence/` | User-supplied APKs, archives, forum exports, and decompilation outputs; ignored by Git and local-only. |
 
