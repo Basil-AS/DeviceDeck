@@ -31,7 +31,7 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
-### Current implementation checkpoint (2026-11-09)
+### Current implementation checkpoint (2026-11-10)
 
 - Current releases: [Android APK/AAB 0.1.0-alpha.23](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.23), [Windows ZIP/Linux AppImage 0.1.0-alpha.23](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.23), and [macOS DMG 0.7.0-alpha.25](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.25) are published with SHA256SUMS where the platform pipeline provides them. They add a confirmation-gated Blade 2 reset write (`000E 0000`) to the unified apps. Since the Baseus app exposes no reset acknowledgement/readback, DeviceDeck reports only that the write was sent. CI passed; physical-device behavior remains unverified and the macOS DMG is ad-hoc signed, not notarized.
 - Earlier releases: Android/desktop alpha.22 and macOS alpha.24 added Bowie 30 gesture assignments, Blade 2 / Blade 2-140 negotiated USB-C protocol labels, and the W820NB Plus prompt volume range 0–15. The previous Android/desktop alpha.19 releases include realme Buds 7 / Buds 7 Pro aliases. Their static command mappings still need physical-device round-trips.
