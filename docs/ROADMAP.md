@@ -1,5 +1,7 @@
 # DeviceDeck roadmap
 
+> **Priority decision (2026-11-10): Android is the primary platform.** Work on Android device coverage, feature completeness, UX, and releases first; Windows and macOS follow as secondary builds of the same DeviceDeck product. Baseus and every other brand remain device profiles inside DeviceDeck. See [product priorities](PRODUCT_PRIORITIES.md).
+
 ## Phase 0 — Repository foundation
 
 - [x] Create public umbrella repository and public platform forks.
@@ -25,11 +27,11 @@
 
 ## Phase 3 — Initial device support
 
-Suggested order:
-1. realme Air 7 / Air 7 Pro on Android and Windows, using the QuickBuds foundation.
-2. Edifier W820NB Plus on Android, Windows, and macOS, using the supplied Edifier reverse-engineering report and the platform app foundations.
-3. realme Air 7 / Air 7 Pro on macOS.
-4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
+Suggested order (Android first, then platform parity):
+1. Complete and validate the named Android target-device profiles and controls: Edifier W820NB Plus, realme Air 7 / Air 7 Pro, Baseus EP10 Pro, Bowie 30, Bowie MF1, and Blade 2.
+2. Improve Android pairing, device selection, connection recovery, status reporting, accessibility, and release quality across those profiles.
+3. Bring validated device behavior to Windows/Linux, then macOS, without splitting brands or devices into separate products.
+4. Expand beyond the requested devices using the reviewed app catalogs, prioritizing models with evidence and available hardware.
 
 ### Current implementation checkpoint (2026-11-10)
 
