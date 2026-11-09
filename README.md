@@ -2,6 +2,8 @@
 
 Open-source, multi-platform control center for BLE devices: earbuds, headphones, speakers, and battery packs. DeviceDeck aims to expose each device's real capabilities through a lightweight, consistent interface.
 
+**Product priority:** Android is the primary platform and receives first priority for device coverage, feature completeness, UX, and releases. Windows and macOS are secondary platform builds of the same DeviceDeck product; their development must not split Baseus or any other brand into a separate app. See [product priorities](docs/PRODUCT_PRIORITIES.md).
+
 ## Applications
 
 | Platform | Repository | Upstream |
