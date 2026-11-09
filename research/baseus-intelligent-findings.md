@@ -37,13 +37,13 @@ The BLE view-model constructs reads as `9AAA03 + code + 0001` and writes as `9AA
 |---|---|---|
 | `0001`–`000C` | Type-C1 output V/A/W (`0001`/`0002`/`0003`); Type-C2 output V/A/W (`0004`/`0005`/`0006`); Type-C1 input V/A/W (`0007`/`0008`/`0009`); Type-C2 input V/A/W (`000A`/`000B`/`000C`). Parser computes raw value divided by the response multiplier byte. | Exact app parser mapping; scale/range needs device capture |
 | `000D` | Main-page temperature, raw minus 100 | Exact parser mapping |
-| `0010` | Port/status bitfield; used to update status and drive on/off control state | Exact parser/use, bit semantics partly unresolved |
+| `0010` | Port/status bitfield. The low two bits are C1 state and bits 2–3 are C2 state: `0` off, `1` output/discharge, `2` input/charge. Higher bits also carry cell status. | Exact static parser/use and mode values |
 | `0011` | Device error value | Exact parser mapping; error enum not yet decoded |
 | `0012` | Type-C charging protocol code | Exact parser mapping; label table in `MobilePowerUtil` |
 | `0013`, `0023`, `0024` | Bluetooth module, BMS and DC module versions | Exact app read/display behavior |
 | `0014` | Main-page electricity/energy value | Exact parser mapping; physical unit/scaling needs capture/UI string cross-check |
 | `0015`, `0016` | Remaining time and charge time; app caps values at 1440 | Exact parser mapping |
-| `0018`, `0019`, `001A`, `001B` | Port control writes. Values `0000` and `0001` are used by the UI to switch port states. State bit pairs are extracted from low two bits and bits 2–3 of `0010`. | Exact command builders/UI call; port-to-code mapping requires live confirmation |
+| `0018`–`001B` | Port writes: C1 output/discharge=`0018`, C1 input/charge=`0019`, C2 output/discharge=`001A`, C2 input/charge=`001B`. `0000` clears the selected mode; `0001` enables it. The app clears the prior mode before enabling a replacement, then rereads the status. | Exact mapping from the decompiled `StatisticsFragmentViewModel` parser and its `W0`/`X0` transition methods; the physical connector labels and firmware behavior still need a live-device check |
 | `001E`, `001F` | Reminder countdown and automatic shutdown countdown | Exact read/write path |
 | `0020` | Screen theme; UI selects one of three indices (0, 1, 2) and writes a four-hex-digit value | Exact UI choices/write path |
 | `0021` | A write path exists in the main view-model, but its UI meaning was not established in this pass | Known write builder, semantic unresolved |
