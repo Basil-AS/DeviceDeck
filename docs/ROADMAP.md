@@ -10,7 +10,7 @@
 
 ## Phase 1 — Inventory and protocol discovery
 
-1. Decompile the supplied realme Link and Baseus Intelligent APK splits locally; identify package/build versions, model databases, BLE services/characteristics, packet framing, capability discovery, and command mappings. Current static Baseus findings are in [`research/baseus-intelligent-findings.md`](../research/baseus-intelligent-findings.md); they are not yet a verified BLE command map.
+1. Decompile the supplied realme Link and Baseus Intelligent APK splits locally; identify package/build versions, model databases, classic/BLE transports, packet framing, capability discovery, and command mappings. Baseus findings establish RFCOMM/SPP for EP10 Pro/MF1 and BLE for Bowie 30/Blade 2. DeviceDeck now has integrated support slices on all platforms for Bowie 30, Blade 2, EP10 Pro, and MF1 battery reading, all inside the same platform app. These slices remain unverified on physical hardware. See [`research/baseus-intelligent-findings.md`](../research/baseus-intelligent-findings.md).
 2. Extract device catalogs from all reviewed apps and open projects (QuickBuds, HeyBuds, Edifier Connect/ConneX, Baseus Intelligent, mEDIFIER, EncoDeck, and relevant platform clients). Maintain provenance per model and per feature.
 3. Compare catalog/UI evidence with runtime packet evidence. Static strings and model rows are leads, not proof of working hardware support.
 4. For Baseus Blade 2, first establish its BLE profile and whether it has any BLE control channel; power-bank telemetry and charging safety are treated separately.
@@ -20,7 +20,7 @@
 - Define capability, state, command, response, and error models.
 - Add protocol codecs as vendor/model modules, with golden packet fixtures and provenance notes.
 - Add read-before/write/read-after behavior, timeouts, reconnect handling, and capability-gated UI.
-- Add a native BLE/GATT transport to Android and Windows/Linux before exposing Edifier or Baseus controls there. The inherited Android and desktop apps currently speak RFCOMM for their realme/OPPO link; the Android Edifier codec alone does not connect to BLE devices. Keep platform transport code separate from the vendor codec/profile.
+- Native BLE/GATT transports and shared accessory hubs are now integrated on Android and Windows/Linux. Continue improving discovery stability and model-specific session behavior; keep platform transport separate from vendor codecs and profiles.
 - Keep destructive operations (reset, firmware update, arbitrary raw writes) out of ordinary controls until independently verified and guarded.
 
 ## Phase 3 — Initial device support
@@ -31,13 +31,12 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
-### Current implementation checkpoint (2026-11-08)
+### Current implementation checkpoint (2026-11-09)
 
-- macOS: W820NB Plus BLE discovery, raw D8 capability query, battery read, ANC/transparency, and a decoded D8 capability report are in [DeviceDeck-macOS #7](https://github.com/Basil-AS/DeviceDeck-macOS/pull/7). [DeviceDeck-macOS 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4) adds capability-gated game mode (0x08 query, 0x09 write followed by readback), tests, a DMG, and source archive. No physical headset has verified connection or command behavior. EQ, prompts and gestures remain outstanding. The DMG is ad-hoc signed and not notarized.
-- Android/Windows/Linux: DeviceDeck branding and protocol foundation are in [DeviceDeck-Android-Windows #2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/2); versioned signing/release pipeline is in [#3](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/3). Alpha.2 artifacts are published: [Android APK/AAB](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.2) and [Windows ZIP/Linux AppImage](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2), each with SHA256SUMS; the Android APK signature and package were verified by tag CI. This release adds the Air 7 Pro spatial-silent warning to the desktop known-issues screen and regression coverage. Android/desktop realme Air 7/Air 7 Pro protocol profiles remain inherited from QuickBuds and need fresh DeviceDeck hardware verification.
-- Android: the isolated Edifier frame codec and tests are merged in [DeviceDeck-Android-Windows #9](https://github.com/Basil-AS/DeviceDeck-Android-Windows/pull/9). This is framing infrastructure, not BLE transport or W820NB Plus controls. Android still needs a GATT connection, notifications, serialized writes, lifecycle/reconnect handling, and model-profile UI with command readback.
-- Windows/Linux: the inherited app's device link is RFCOMM. Edifier/Baseus GATT transport and model support have not started.
-- Realme and Baseus requested models remain research/catalog-only in DeviceDeck until implementation and hardware evidence are recorded.
+- macOS: [DeviceDeck 0.7.0-alpha.11](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.11) is published with realme Air 7/Air 7 Pro profiles (ANC levels, preset EQ, game/spatial controls, wear detection, gesture maps, Air 7 multipoint and find-device), Edifier W820NB Plus D8-profile EQ and sleep timer, and Baseus profiles in the same app. The DMG and source archive passed CI; the downloaded source ZIP and DMG verified successfully with `unzip -t` and `hdiutil verify`. Hardware behavior remains unverified; the DMG is ad-hoc signed, not notarized.
+- Android: [APK/AAB 0.1.0-alpha.8](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.8) is published with profile-gated W820NB Plus EQ and sleep timer controls in the same hub as Baseus EP10 Pro/MF1, Blade 2, and Bowie 30 controls. Release CI verified the persistent APK signer and `SHA256SUMS`; downloaded APK/AAB hashes matched the release checksum file.
+- Windows/Linux: [ZIP/AppImage 0.1.0-alpha.8](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.8) is published with matching W820NB Plus EQ and sleep timer controls alongside EP10 Pro SPP noise controls, MF1 battery reading, Blade 2 telemetry/display/timers, and Edifier/Bowie 30 in the shared accessory hub. Desktop tests and packaging passed; downloaded Windows ZIP and Linux AppImage hashes matched `SHA256SUMS`, and the ZIP passed `unzip -t`.
+- Remaining target gaps include physical-device validation on all platforms, Edifier prompts/gestures, Baseus EP10 Pro/MF1 gestures, Blade 2 port enable/disable and reset mapping, additional Air 7/Air 7 Pro controls, and support expansion from the reviewed device catalogs. Keep every device profile inside each platform's unified DeviceDeck app.
 
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
 
