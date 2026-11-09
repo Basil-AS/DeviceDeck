@@ -14,11 +14,11 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.12](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.12)
-- [Windows ZIP/Linux AppImage 0.1.0-alpha.12](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.12)
-- [macOS DMG 0.7.0-alpha.14](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.14)
+- [Android APK/AAB 0.1.0-alpha.13](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.13)
+- [Windows ZIP/Linux AppImage 0.1.0-alpha.13](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.13)
+- [macOS DMG 0.7.0-alpha.15](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.15)
 
-These are platform builds of the same DeviceDeck product; Edifier, realme, and Baseus devices are profiles inside each app. Alpha.12 Android/Windows/Linux and macOS alpha.14 add capability-gated Edifier W820NB Plus auto power-off without audio; the apps query D7, set D6, and read D7 again. Release checksums and archive integrity passed. Device behavior still needs physical-device verification, and further controls remain to be implemented. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
+These are platform builds of the same DeviceDeck product; Edifier, realme, and Baseus devices are profiles inside each app. Android/Windows/Linux alpha.13 and macOS alpha.15 add capability-gated W820NB Plus Bluetooth name reading and renaming: D8 gates C9 queries and CA writes, and the reported UTF-8 byte limit is enforced before C9 readback. The Android and desktop releases passed checksum and archive-integrity checks; the macOS DMG and source ZIP passed their integrity checks. Device behavior still needs physical-device verification, and further controls remain to be implemented. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
 
 DeviceDeck is one cross-platform product with per-platform builds. Baseus support lives inside the same DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout retained as protocol/source reference; it is not a separate product or release target. Its catalog of 149 BLE model profiles informs the shared device catalog. Blade 2 power telemetry, display/timer settings, and C1/C2 port modes are implemented in the Android, Windows/Linux, and macOS hubs; Blade 2-140 cell metrics (six cell voltages and currents) are implemented in all three platform apps. Settings without protocol readback, broader model coverage, and physical-device verification remain open.
 
