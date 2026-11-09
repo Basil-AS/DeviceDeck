@@ -151,7 +151,7 @@ Other product-level screens supported in the same app/library include ANC, sound
 | Timed shutdown | `D3` query / `D1` set / `D2` cancel | Set minutes as two bytes big-endian |
 | Auto-off without audio | `D7` query / `D6` set | Set one byte |
 | Wear detection | `FB` query / `FC` set | Feature/model dependent |
-| Voice prompt volume/state | `26` query / `FA` set | Beep/prompt state and volume; model-specific |
+| Beep/prompt tone switch | `F9` query / `FA` set | `F9` response byte 0 and `FA` payload byte 0 are boolean 0/1; Connect gates the `tws_prompt` setting on D8 B17 bit 1. This switch is separate from voice prompt level (`05`/`06`). |
 | Voice prompt level | `05` query / `06` set | Set one level/progress byte |
 | Power off / repair / disconnect / reset | `CE` / `CF` / `CD` / `07` | These are state-changing commands; reset/power operations should not be sent casually |
 | OTA | `10` ready / `11` start-master / `12` start-sub and transfer commands | Firmware update has a separate multi-stage/chunk protocol; do not implement from index alone |
