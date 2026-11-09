@@ -14,11 +14,11 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.20](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.20)
-- [Windows ZIP/Linux AppImage 0.1.0-alpha.20](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.20)
-- [macOS DMG 0.7.0-alpha.22](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.22)
+- [Android APK/AAB 0.1.0-alpha.21](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.21)
+- [Windows ZIP/Linux AppImage 0.1.0-alpha.21](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.21)
+- [macOS DMG 0.7.0-alpha.23](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.23)
 
-These are platform builds of the same DeviceDeck product; Edifier, realme, and Baseus devices are profiles inside each app. Android/Windows/Linux alpha.20 and macOS alpha.22 decode Blade 2 and Blade 2-140 USB-C protocol telemetry into C1/C2 labels using the Baseus Intelligent tables. Alpha.19/alpha.21 include the capability-gated W820NB Plus prompt volume range 0–15 (D8 B17 bit 4 gates 0x05 reads and 0x06 writes with readback). The command mappings are derived from static app analysis and still need physical-device verification. CI publishes Android, desktop, and macOS artifacts; Android/desktop assets include SHA256SUMS. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
+These are platform builds of the same DeviceDeck product; Edifier, realme, and Baseus devices are profiles inside each app. Android/Windows/Linux alpha.21 and macOS alpha.23 add Baseus Bowie 30 BLE gesture assignments inside the shared DeviceDeck hub (BA21 query, BA22 write, then readback). These versions also include the Blade 2 USB-C protocol labels and the capability-gated W820NB Plus prompt volume range 0–15 (D8 B17 bit 4 gates 0x05 reads and 0x06 writes with readback). The command mappings are derived from static app analysis and still need physical-device verification. CI publishes Android, desktop, and macOS artifacts; Android/desktop assets include SHA256SUMS. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
 
 DeviceDeck is one cross-platform product with per-platform builds. Baseus support lives inside the same DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout retained as protocol/source reference; it is not a separate product or release target. Its catalog of 149 BLE model profiles informs the shared device catalog. Blade 2 power telemetry, display/timer settings, C1/C2 port modes and negotiated-protocol labels are implemented in the Android, Windows/Linux, and macOS hubs; Blade 2-140 cell metrics (six cell voltages and currents) are implemented in all three platform apps. Settings without protocol readback, broader model coverage, and physical-device verification remain open.
 
