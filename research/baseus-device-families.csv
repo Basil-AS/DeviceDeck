@@ -1,0 +1,31 @@
+app_module,device_or_service_family,what_static_apk_shows,evidence_limit
+bsgan,unknown device module,"Dedicated activity module exists",Needs targeted inspection
+charging_gun,charging gun,"Dedicated activity module exists",Presence does not prove BLE transport or model list
+charging_nebula,charging product,"Dedicated activity and protocol resolver exist",Needs per-model command and transport audit
+charging_station,charging station,"Dedicated activity module exists",Needs per-model command and transport audit
+cupscent,scent appliance,"Dedicated activity module exists",Needs model and control audit
+doublescent,scent appliance,"Dedicated activity module exists",Needs model and control audit
+ear,earbuds/headphones,"Battery, ANC, EQ, gestures, find-device and earphone settings flows",Features vary by model and protocol
+energeek,unknown device/product module,"Dedicated activity module exists",Needs targeted inspection
+energystorage,portable power station,"NRG/PES controllers and home, outputs, wave, settings, parallel-operation flows",Controller registry is explicit but coverage per model remains
+fridge,fridge/appliance,"Dedicated activity module exists",Likely cloud/model-specific; needs audit
+gesture,gesture accessory or feature,"Dedicated activity module exists",Exact product scope needs audit
+gesture2,gesture accessory or feature,"Dedicated activity module exists",Exact product scope needs audit
+headgesture,head gesture feature,"Dedicated activity module exists",Model eligibility and command mapping need audit
+headphones,headphones,"Headphone product control activity",Features vary by model and protocol
+headsetting,earphone settings,"Dedicated settings activity",Model gating must be inspected
+homepurifier,home air purifier,"Dedicated activity module exists",Needs model and transport audit
+mobilepower,smart power bank,"Blade 2-140 main page, screen theme/text, timer controls and detailed port/cell statistics",Static command builders; confirm on hardware
+p169eq,earphone EQ,"EQ customization activity",Model eligibility and write mapping need audit
+petpurifier,pet water purifier,"Dedicated activity module exists",Needs model and transport audit
+petwater,pet water device,"BLE command registry category exists",Needs exact model/command audit
+powerbank,power bank content/service,"H5 and PDF information activities",May be informational, not protocol controller
+receptacles,smart sockets/receptacles,"Dedicated Wi-Fi device flow",Cloud/account and model capabilities need audit
+scentmach,scent machine,"Dedicated activity module exists",Needs model and transport audit
+sleepalarm,sleep alarm,"Dedicated activity module exists",Needs model and transport audit
+smartmouse,smart mouse,"Dedicated activity module exists",Needs model and transport audit
+stylus,stylus,"BLE command registry category exists",Needs exact model/command audit
+third_serve,third-party service,"Dedicated activity module exists",Not necessarily a device family
+washingmachine,washing machine/appliance,"Dedicated activity module exists",Needs model and transport audit
+wifi,Wi-Fi provisioning/device transport,"Dedicated flow exists",Infrastructure module, not a product family
+xmly,content/service integration,"Dedicated module exists",Service integration, not a device family

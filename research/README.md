@@ -8,3 +8,4 @@
 
 New findings should record source app/version, model, service/characteristic, direction, payload, decoded meaning, confidence, and hardware verification. Separate static evidence from runtime observations.
 - [`baseus-intelligent-model-catalog.csv`](baseus-intelligent-model-catalog.csv) — alias-to-model entries extracted from the supplied Baseus Intelligent 2.18.0 app; catalog membership is not feature verification.
+- [`baseus-ble-config-catalog.csv`](baseus-ble-config-catalog.csv) — 149 model names and BLE UUID groups from the app's live EU `app_device_ble_config` dictionary on 2026-11-08; regional/server snapshot, not hardware verification.

@@ -14,11 +14,13 @@ App repositories are public forks. Keep upstream history intact and isolate Devi
 
 ## Pre-release builds
 
-- [Android APK/AAB 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.2)
-- [Windows/Linux 0.1.0-alpha.2](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.2)
-- [macOS DMG 0.7.0-alpha.4](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.4)
+- [Android APK/AAB 0.1.0-alpha.8](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.8)
+- [Windows ZIP/Linux AppImage 0.1.0-alpha.8](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.8)
+- [macOS DMG 0.7.0-alpha.11](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.11)
 
-These are alpha builds. Requested Edifier and Baseus controls are incomplete, realme profiles still need fresh DeviceDeck verification, and the macOS app is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for exact platform and device status.
+These are alpha builds of one DeviceDeck app per platform; vendor families are device profiles inside each app. Android/Windows/Linux alpha.8 adds profile-gated W820NB Plus EQ and sleep timer controls to the shared device hub, alongside Baseus EP10 Pro and Bowie MF1 SPP controls, Blade 2 telemetry/display controls, and Bowie 30 BLE controls. macOS alpha.11 includes realme Air 7/Air 7 Pro profiles with ANC levels, preset EQ, game/spatial controls, wear detection, multipoint on Air 7, find-device and model-specific gesture maps, plus Edifier and Baseus profiles. Device paths still need physical-device verification, and further controls remain to be implemented. The macOS DMG is ad-hoc signed and not notarized. See the [support matrix](SUPPORT_MATRIX.md) for per-feature status.
+
+DeviceDeck is one cross-platform product with per-platform builds. Baseus support lives inside the same DeviceDeck apps and release channels. [`research/baseus-reference`](research/baseus-reference) is a research checkout retained as protocol/source reference; it is not a separate product or release target. Its catalog of 149 BLE model profiles informs the shared device catalog. Blade 2 power telemetry and display/timer settings are implemented in the Android, Windows/Linux, and macOS hubs; Blade 2-140 cell metrics are implemented on Android. Port controls, some settings without protocol readback, broader model coverage, and physical-device verification remain open.
 
 ## Initial device scope
 
