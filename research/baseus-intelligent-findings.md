@@ -10,7 +10,7 @@ The app recognizes these exact internal model names and has app-side product/res
 
 | Requested product | Internal model string | Static evidence | App-side control evidence | DeviceDeck status |
 |---|---|---|---|---|
-| Baseus EP10 Pro | `Baseus Bass EP10 Pro` | `DeviceManager` model map; resource category 3 | Noise UI queries `BA33` and writes mode via `BA34 <mode> <level>`; app selects noise type 101 for this model. Gesture UI/config is present, but gesture wire mapping is not resolved. | Research only |
+| Baseus EP10 Pro | `Baseus Bass EP10 Pro` | `DeviceManager` model map; resource category 3 | Noise UI queries `BA33` and writes mode via `BA34 <mode> <level>`; app selects noise type 101 for this model. The v2 gesture template and BA8C–BA8F query/set command shapes are now statically resolved; hardware round-trip is pending. | Research only |
 | Bowie 30 | `Bowie 30` | Resource category 2 | Noise UI offers Off (0), Transparency (2), Noise Reduction (1); common writer queries `BA33`/`BA35` and writes `BA34 <mode> <level>`. Gesture UI/config is present, but gesture wire mapping is not resolved. | Research only |
 | Bowie MF1 | `Baseus Bowie MF1` | `DeviceManager` model map; resource category 3 | Gesture UI/config is present. No explicit noise mode entry was found for this model in inspected selectors; do not infer ANC. | Research only |
 | Baseus Blade 2 | `Blade 2-140` | Resource category 0; `DeviceManager` model row | Dedicated mobile-power UI/view-model supports version and charge/statistics views. Exact telemetry requests and any safe writes are not yet resolved. | Research only |
@@ -80,7 +80,7 @@ The complete module directory inventory and confidence per family are recorded i
 
 ## Gesture function IDs
 
-The bundled `gesture_config_function_list.json` maps these numeric function IDs to eligible actions. The IDs below are copied as IDs; semantic labels and wire encodings still need a verified resource-to-command trace.
+The bundled `gesture_config_function_list.json` maps these numeric function IDs to eligible actions. The IDs below come from that older list; the EP10 Pro v2 resource and command format are documented separately below. None of these statically recovered settings has been validated on physical hardware.
 
 | Model | Single click | Double click | Long press | Triple click |
 |---|---|---|---|---|
@@ -89,7 +89,22 @@ The bundled `gesture_config_function_list.json` maps these numeric function IDs 
 | Bowie MF1 | No model-specific entry in this file | `[11, 12, 1, 2, 3, 4, 0]` | `[11, 12, 1, 2, 3, 4, 0]` | `[4, 5]` |
 | Blade 2 | Not an earbud gesture profile | Not an earbud gesture profile | Not an earbud gesture profile | Not an earbud gesture profile |
 
-The v2 gesture resource also contains EP10 Pro entries with a `functionId: 6` child-value list `[1, 2, 0]`. Resolve that ID against app strings and the runtime profile before exposing controls.
+The v2 gesture resource also contains EP10 Pro entries with a `functionId: 6` child-value list `[1, 2, 0]`. The app resolves function 6 as a noise-mode action; child IDs map to Normal (0), ANC (1), and Transparency (2). This is app UI semantics; device acceptance still needs a hardware capture.
+
+### EP10 Pro v2 gesture command format (static app evidence)
+
+`GestureSettingViewModel` builds these ASCII-hex command strings and passes them to `BluetoothDataWriteManager`. EP10 Pro is selected for classic RFCOMM/SPP (`DeviceManager.H0`), and it is not in the `789C` wrapper predicate (`DeviceManager.Q0`), so the shared writer passes the command bytes through unchanged before sending. The response prefixes below are parsed by the app. This is a statically recovered app protocol, not a live-device trace.
+
+| Operation | Request bytes (hex) | App response handling |
+|---|---|---|
+| Query a button's gesture bindings | `BA 8C <button> <layout>`; use `FF` for all layouts | `AA 8C <button> <layout/function pairs...>`; each remaining two-byte pair is layout ID then function ID |
+| Set one gesture binding | `BA 8D <button> <layout> <function>` | `AA 8D` is handled as a setting result |
+| Query options for a function with child choices | `BA 8E <button> <layout> <function>` | `AA 8E <button> <layout> <function> <count> <child IDs...>` |
+| Set child choices | `BA 8F <button> <layout> <function> <count> <child IDs...>`; zero children is encoded with count `00` | `AA 8F` is handled as a setting result |
+
+The model template maps button `00` to left and `01` to right. Layout IDs are `03` single click, `00` double click, `01` triple click, and `02` long press (from the bundled layout config and its layout-label resolver). Default function IDs are left `{single:0,double:1,long:6,triple:2}` and right `{single:0,double:1,long:6,triple:3}`. The bundled action-option list gives single-click `[1,0]`; double, long, and triple click `[1,6,2,3,4,11,12,0]`. Function `6` has child IDs `[1,2,0]`, displayed as ANC, Transparency, and Normal. These profile values are UI choices, not a claim that every binding works on every EP10 Pro firmware.
+
+The status response `AA 8B <supported>` is decoded as the v2-gesture capability flag (`01` means supported). The exact lifecycle/trigger for that capability query needs a second pass through activity initialization; the BA8C–BA8F builders and AA8C/AA8E parsers are directly visible in the ViewModel. Before implementing DeviceDeck writes, reproduce the app framing/response behavior and record a live read/write/readback on the target headphones.
 
 ## Protocol boundary and next capture
 
