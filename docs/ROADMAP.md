@@ -13,7 +13,7 @@
 1. Decompile the supplied realme Link and Baseus Intelligent APK splits locally; identify package/build versions, model databases, classic/BLE transports, packet framing, capability discovery, and command mappings. Baseus findings establish RFCOMM/SPP for EP10 Pro/MF1 and BLE for Bowie 30/Blade 2. DeviceDeck now has integrated support slices on all platforms for Bowie 30, Blade 2, EP10 Pro, and MF1 battery reading, all inside the same platform app. These slices remain unverified on physical hardware. See [`research/baseus-intelligent-findings.md`](../research/baseus-intelligent-findings.md).
 2. Extract device catalogs from all reviewed apps and open projects (QuickBuds, HeyBuds, Edifier Connect/ConneX, Baseus Intelligent, mEDIFIER, EncoDeck, and relevant platform clients). Maintain provenance per model and per feature.
 3. Compare catalog/UI evidence with runtime packet evidence. Static strings and model rows are leads, not proof of working hardware support.
-4. For Baseus Blade 2, first establish its BLE profile and whether it has any BLE control channel; power-bank telemetry and charging safety are treated separately.
+4. Baseus Blade 2 BLE transport and app-derived power-device command map are established. Continue validating telemetry scaling, C1/C2 identity, and all writes on hardware; charging and firmware safety operations remain separately gated.
 
 ## Phase 2 — Reliable protocol core
 
@@ -21,7 +21,7 @@
 - Add protocol codecs as vendor/model modules, with golden packet fixtures and provenance notes.
 - Add read-before/write/read-after behavior, timeouts, reconnect handling, and capability-gated UI.
 - Native BLE/GATT transports and shared accessory hubs are now integrated on Android and Windows/Linux. Continue improving discovery stability and model-specific session behavior; keep platform transport separate from vendor codecs and profiles.
-- Keep destructive operations (reset, firmware update, arbitrary raw writes) out of ordinary controls until independently verified and guarded.
+- The app-derived Blade 2 reset is exposed only behind explicit confirmation and is reported as sent, never as completed; no reset acknowledgement/readback was found. Keep firmware update and arbitrary raw writes unavailable until independently verified and guarded.
 
 ## Phase 3 — Initial device support
 
@@ -31,9 +31,10 @@ Suggested order:
 3. realme Air 7 / Air 7 Pro on macOS.
 4. Baseus EP10 Pro, Bowie 30, Bowie MF1, then Blade 2 based on protocol evidence and hardware access.
 
-### Current implementation checkpoint (2026-11-09)
+### Current implementation checkpoint (2026-11-10)
 
-- Current releases: [Android APK/AAB 0.1.0-alpha.20](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.20), [Windows ZIP/Linux AppImage 0.1.0-alpha.20](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.20), and [macOS DMG 0.7.0-alpha.22](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.22) contain Blade 2 / Blade 2-140 negotiated USB-C protocol labels in the unified DeviceDeck app. Tag CI passed. Downloaded Android APK/AAB, Windows ZIP, and Linux AppImage hashes matched their SHA256SUMS; APK/AAB/ZIP archives passed integrity checks, and the AppImage is an x86-64 ELF. The downloaded macOS alpha.22 DMG passed `hdiutil verify` and the source archive passed `unzip -t`. The previous Android/desktop alpha.19 releases include the realme Buds 7 and Buds 7 Pro name aliases; alpha.19/alpha.21 include W820NB Plus prompt volume 0–15. Static command mappings still need physical-device round-trips; the macOS DMG is ad-hoc signed and not notarized.
+- Current releases: [Android APK/AAB 0.1.0-alpha.23](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.23), [Windows ZIP/Linux AppImage 0.1.0-alpha.23](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.23), and [macOS DMG 0.7.0-alpha.25](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.25) are published with SHA256SUMS where the platform pipeline provides them. They add a confirmation-gated Blade 2 reset write (`000E 0000`) to the unified apps. Since the Baseus app exposes no reset acknowledgement/readback, DeviceDeck reports only that the write was sent. CI passed; physical-device behavior remains unverified and the macOS DMG is ad-hoc signed, not notarized.
+- Earlier releases: Android/desktop alpha.22 and macOS alpha.24 added Bowie 30 gesture assignments, Blade 2 / Blade 2-140 negotiated USB-C protocol labels, and the W820NB Plus prompt volume range 0–15. The previous Android/desktop alpha.19 releases include realme Buds 7 / Buds 7 Pro aliases. Their static command mappings still need physical-device round-trips.
 
 - macOS: [DeviceDeck 0.7.0-alpha.19](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.19) is published with the Bowie MF1 legacy BA21/BA22 gesture profile in the shared DeviceDeck device hub. Android [0.1.0-alpha.17](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.17) and Windows/Linux [0.1.0-alpha.17](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.17) publish the same unified-app feature. Tag CI passed; Android APK/AAB and desktop ZIP/AppImage checksums match SHA256SUMS, and macOS DMG/source archive verification passed. Gesture choices are model-specific, writes require AA22 success and BA21 readback; physical verification remains open. The macOS DMG is ad-hoc signed and not notarized.
 
@@ -49,7 +50,7 @@ Suggested order:
 - macOS: [DeviceDeck 0.7.0-alpha.13](https://github.com/Basil-AS/DeviceDeck-macOS/releases/tag/macos-v0.7.0-alpha.13) includes Blade 2 C1/C2 port controls and the shared Edifier, realme, and Baseus profiles. CI passed; the downloaded source ZIP passed `unzip -t` and the DMG passed `hdiutil verify`. Hardware behavior remains unverified; the DMG is ad-hoc signed, not notarized.
 - Android: [APK/AAB 0.1.0-alpha.11](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/android-v0.1.0-alpha.11) includes EP10 Pro gesture actions and BA8E/BA8F cycle-mode choices, alongside Blade 2 C1/C2 port controls and the W820NB Plus and other Baseus profiles. Release CI passed; downloaded APK/AAB hashes match `SHA256SUMS`, and the APK passed `unzip -t`.
 - Windows/Linux: [ZIP/AppImage 0.1.0-alpha.11](https://github.com/Basil-AS/DeviceDeck-Android-Windows/releases/tag/desktop-v0.1.0-alpha.11) includes the same DeviceDeck profiles and controls. Windows ZIP and AppImage checksums were recorded; the ZIP passed `unzip -t`, and the AppImage is an x86-64 ELF executable. AppImage packaging uses a checksum-verified, MIT-licensed pinned AppRun runtime to avoid upstream asset download failures on hosted runners.
-- Remaining target gaps include physical-device validation on all platforms, additional Edifier controls, Blade 2 port-control hardware validation and reset mapping, additional Air 7/Air 7 Pro controls, and support expansion from the reviewed device catalogs. Baseus MF1 legacy gesture controls are implemented from the app's BA21/BA22 path but still need a hardware round-trip. Keep all brands and device profiles inside each platform's unified DeviceDeck app.
+- Remaining target gaps include physical-device validation on all platforms, additional Edifier controls, Blade 2 port/reset hardware validation, additional Air 7/Air 7 Pro controls, and support expansion from the reviewed device catalogs. Baseus MF1 legacy gesture controls are implemented from the app's BA21/BA22 path but still need a hardware round-trip. Keep all brands and device profiles inside each platform's unified DeviceDeck app.
 
 Deliver each model in slices: identification and battery/status; primary modes; audio/EQ; gestures and multipoint; advanced settings; diagnostics.
 
