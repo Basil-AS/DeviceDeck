@@ -105,7 +105,7 @@ The command response payload is parsed positionally (index below is zero-based).
 | 14 | UI skin/profile value |
 | 15 (`B15`) | Shake gesture capability bits |
 | 16 | Tap/control-settings profile selector (`b16Tap`); selects mapping schema/UI |
-| 17 (`B17`) | LED, beep switch, in-ear detection, touch sensitivity, beep volume, reset, game mode, box battery |
+| 17 (`B17`) | LED, beep switch, in-ear detection, touch sensitivity, voice prompt level, reset, game mode, box battery |
 | 18 (`B18`) | Fit detection, LHDC/LDAC, earmuff, wind/leak detection, clear pairing, light color |
 | 19 (`B19`) | Input source, volume, ambient-light timer, music info, pressure, touch, ambient light |
 | 20 (`B20`) | Sound-space, prompt tone, Hi-Res, buttons, hearing protection, time calibration/recovery, drag gestures |
@@ -152,7 +152,7 @@ Other product-level screens supported in the same app/library include ANC, sound
 | Auto-off without audio | `D7` query / `D6` set | Set one byte |
 | Wear detection | `FB` query / `FC` set | Feature/model dependent |
 | Beep/prompt tone switch | `F9` query / `FA` set | `F9` response byte 0 and `FA` payload byte 0 are boolean 0/1; Connect gates the `tws_prompt` setting on D8 B17 bit 1. This switch is separate from voice prompt level (`05`/`06`). |
-| Voice prompt level | `05` query / `06` set | Set one level/progress byte |
+| Voice prompt level | `05` query / `06` set | Query has no payload; set carries one unsigned level byte. `CommandParser.parseBeepLevel()` reads response payload byte 0 for either command. `CommandParserHelper.getVolLevelOptions()` constructs the slider with values 0–15. UI/query availability is gated by D8 B17 bit 4 (`D8Bean.B17Bean.isSupportBeepVolumeSettings`). |
 | Power off / repair / disconnect / reset | `CE` / `CF` / `CD` / `07` | These are state-changing commands; reset/power operations should not be sent casually |
 | OTA | `10` ready / `11` start-master / `12` start-sub and transfer commands | Firmware update has a separate multi-stage/chunk protocol; do not implement from index alone |
 
