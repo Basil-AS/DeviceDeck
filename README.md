@@ -27,7 +27,7 @@ DeviceDeck is one cross-platform product with per-platform builds. Baseus suppor
 - Edifier W820NB Plus
 - realme Buds Air 7 and Buds Air 7 Pro (the requested “Buds 7 / 7 Pro”; confirm exact model names and regional variants)
 - Baseus EP10 Pro
-- Baseus Bowie 30
+- Baseus Bowie 30 (BLE noise modes and left/right gesture assignments)
 - Baseus Bowie MF1
 - Baseus Blade 2
 
