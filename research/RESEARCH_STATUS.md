@@ -3,6 +3,7 @@
 ## Completed
 
 - Edifier Connect / ConneX static analysis from the supplied builds is archived in `edifier/EDIFIER_ANDROID_REVERSE_ENGINEERING.md` and `edifier/edifier_command_index.csv`.
+- Follow-up decryption of Connect 8.4.28's bundled product profile resolves W820NB Plus GATT UUIDs (`4809a501`, `48090001`, `48090002`); the non-Plus W820NB profile uses a different service. This is static profile evidence only and needs a physical connection/discovery check. ConneX's tuple remains unresolved.
 - Supplied Baseus Intelligent 2.18.0 and realme Link 5.8.811.2814 split bundles were unpacked locally; their full bundle SHA-256 hashes are recorded in `APK_MANIFESTS.md`.
 - Jadx produced local resource/source trees for the base APKs and reported recoverable errors (522 Baseus, 226 realme) after processing nearly all classes. Treat decompiled output as incomplete until key code paths are checked.
 - Baseus Intelligent contains explicit profile/config entries for `Baseus Bass EP10 Pro`, `Bowie 30`, `Baseus Bowie MF1`, and `Blade 2`; examples appear in `DeviceResVersion1.java`, `DeviceManager.java`, and bundled gesture resource JSON. This proves model-specific app data exists, not that every advertised feature works over BLE.
