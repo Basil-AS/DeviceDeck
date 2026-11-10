@@ -24,11 +24,27 @@ Date of analysis: 2026-11-07. This report describes the supplied APKs, not a liv
 
    These are discovery/model IDs, **not** the GATT service or characteristic UUIDs.
 2. Connect checks the classic A2DP relationship and uses manufacturer data (manufacturer ID `0x07E0` when present) to associate the BLE control endpoint with the audio headset and configure protocol version/encryption. It scans at low latency, retries, and can require Android location/Bluetooth permissions depending on OS version.
-3. The model catalog supplies `ProductServiceUuid`, `ProductReadUuid`, and `ProductWriteUuid`. The app opens GATT, requests MTU 500, discovers the configured service, enables notifications on the read characteristic, and writes frames to the write characteristic. The UUID catalog is carried in product data/database and is not fully readable as plain text from the supplied APK resources; do not substitute the search UUID for these values.
+3. The model catalog supplies `ProductServiceUuid`, `ProductReadUuid`, and `ProductWriteUuid`. The app opens GATT, requests MTU 500, discovers the configured service, enables notifications on the read characteristic, and writes frames to the write characteristic. The bundled catalog is AES-CBC encrypted in the APK but can be decoded using the app's loader; do not substitute the search UUID for the GATT service UUID.
 4. BLE notification bytes are accumulated/reassembled, CRC checked, decoded into command objects, persisted to the local `CommandTable`, then routed to UI state parsers.
 5. Some product profiles select SPP instead of GATT. The database decides transport; the command API is shared.
 
 ConneX's BLE implementation follows the same shape: it reads the three GATT UUIDs from its `ProductTable`, subscribes to notifications, chooses write-with/without-response from characteristic properties, and pushes data through its command layer. Relevant sources: [Connect BLEManager](file:///tmp/edifier-rev/connect/decompiled/sources/com/edifier/product_connect/connect/ble/BLEManager.java), [ConneX BLEManager](file:///tmp/edifier-rev/connex/sources/com/edifier/lib_connect/connect/ble/BLEManager.java).
+
+## Decrypted W820NB Plus product profile (Connect 8.4.28)
+
+The supplied APK contains `assets/products_release.json`, encrypted by the app before parsing. Following its local AES-CBC loader and decrypting the bundled file reveals Connect product record `id=224`, updated `2023-03-28`. The profile gives this W820NB Plus connection tuple:
+
+| Field | Value | Role |
+| --- | --- | --- |
+| `ProductSearchUuid` | `0000a500-0000-1000-8000-00805f9b34fb` | BLE advertisement/model discovery |
+| `ProductServiceUuid` | `4809a501-1a48-11e9-ab14-d663bd873d93` | GATT service |
+| `ProductReadUuid` | `48090001-1a48-11e9-ab14-d663bd873d93` | Notification/read characteristic |
+| `ProductWriteUuid` | `48090002-1a48-11e9-ab14-d663bd873d93` | Command write characteristic |
+| `ProductSPPUuid` | `EDF00000-EDFE-DFED-FEDF-EDFEDFEDFEDF` | SPP service field in the profile |
+
+The non-Plus `W820NB` record is different: service `48093801-1a48-11e9-ab14-d663bd873d93`, with the same `48090001`/`48090002` read/write characteristic UUIDs. The W820NB Plus row sets `IsNotify=1`, `IsTWS=false`, and `IsFirmwareUpdate=false`. These are static profile fields, not a captured GATT session; the SPP field does not establish that the Plus uses SPP for control. DeviceDeck should use the Plus-specific service and product read/write UUIDs, keeping `ProductSearchUuid` separate from the GATT service. A hardware connection and characteristic-discovery check is still required before marking transport verified.
+
+This corrects the earlier statement below that Connect's supplied W820NB Plus service/read/write tuple could not be recovered from the APK. That limitation still applies to the supplied ConneX build.
 
 ## Wire format
 
@@ -162,7 +178,7 @@ The CSV contains the full named enum, including commands unrelated to these head
 
 - The command architecture is strikingly similar: same `0xAA` framing, v1/v2 CRC/encryption model, same prominent command IDs, D8 capability gate, local product database and command log. ConneX's command enum has 179 entries versus Connect's 187; differences are mostly product-generation/library surface, not a distinct standard API.
 - For matching command names, the notable index mismatch in these supplied builds is `denoise_mode_set`: Connect `0x83`, ConneX `0x80`. Connect also has two `tips_eq_*` indices absent from the ConneX enum. Do not build one cross-app table by blindly copying every index across libraries; preserve per-protocol/version mappings.
-- Connect has the explicit W820NB Plus product UUID and dedicated Plus touch-control layout in this supplied build. That is the clearest static proof of Plus-specific UI behavior.
+- Connect has the explicit W820NB Plus product UUID, decrypted product GATT tuple, and dedicated Plus touch-control layout in this supplied build. This is static app data, not hardware verification.
 - ConneX has support for W820 family products in its catalog/library and a dynamic feature page. The shown ConneX build's exact product GATT profile is database-backed; the supplied APK alone did not yield a plain-text W820NB Plus service/read/write UUID tuple.
 - Both save command traffic into a Room table with product UUID, header, appCode, command index, payload, checksum, raw frame, direction and timestamp. Connect's table can be useful for a future runtime data export, but static decompilation does not expose the user's runtime DB.
 - App versions and behavior can differ from the 4PDA thread snapshots; this report is tied to the supplied binaries' version metadata.
