@@ -10,3 +10,5 @@ The following manufacturer pages were consulted only to identify product names a
 - Baseus Blade 2, slim power bank: https://www.baseus.com/products/blade2-smart-power-bank-65w-12000mah
 
 realme and Edifier entries use generic form-factor silhouettes. Update this note with primary manufacturer references before making exact visual claims about those designs.
+
+The Android fork also contains original Android VectorDrawable illustrations for the realme Buds Air7 and Air7 Pro model-picker rows (`ic_device_realme_air7.xml` and `ic_device_realme_air7_pro.xml`). These are schematic DeviceDeck drawings, not vendor artwork or exact product renders; they are covered by the Android app repository's GPL-3.0-or-later license.
